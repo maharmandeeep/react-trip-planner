@@ -3,7 +3,11 @@
 import { Geist, Geist_Mono } from "next/font/google"
 import { Provider } from "react-redux"
 import { store } from "@/store/store"
+import { warmUpServer } from "@/services/apiClient"
 import "./globals.css"
+
+// Ping backend on app load to wake up Render free-tier server
+if (typeof window !== "undefined") warmUpServer()
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

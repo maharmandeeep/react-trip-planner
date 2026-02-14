@@ -51,4 +51,12 @@ apiClient.interceptors.response.use(
   }
 )
 
+// Wake up Render free-tier server (cold start takes ~30-60s)
+// Call on app load so backend is ready by the time user submits the form
+export function warmUpServer() {
+  fetch((process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000') + '/api/trip/plan', {
+    method: 'HEAD',
+  }).catch(() => {})
+}
+
 export default apiClient
