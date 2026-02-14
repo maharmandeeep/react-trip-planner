@@ -56,7 +56,7 @@ export default function RouteMap() {
   const center = route_geometry?.length > 0 ? route_geometry[0] : [39.8283, -98.5795]
 
   return (
-    <div className="rounded-lg overflow-hidden border h-[400px] md:h-[500px]">
+    <div className="rounded-lg overflow-hidden border h-[300px] sm:h-[400px] lg:h-[500px]">
       <MapContainer
         center={center}
         zoom={5}

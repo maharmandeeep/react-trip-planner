@@ -182,7 +182,7 @@ export default function LogSheet() {
   if (!data?.daily_logs?.length) return null
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 min-w-0 overflow-hidden">
       <h2 className="text-lg font-semibold">Daily Log Sheets</h2>
       {data.daily_logs.map((log) => (
         <SingleDayLog key={log.day} log={log} />
