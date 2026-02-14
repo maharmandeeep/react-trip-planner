@@ -3,6 +3,7 @@
 import { useSelector } from "react-redux"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import useResolvedStops from "@/app/hooks/useResolvedStops"
 
 const STOP_COLORS = {
   start: "#7C3AED",
@@ -22,6 +23,7 @@ const STOP_LABELS = {
 
 export default function Timeline() {
   const data = useSelector((state) => state.trip.data)
+  const { resolvedStops, getDisplayName } = useResolvedStops()
 
   if (!data?.stops?.length) return null
 
@@ -32,9 +34,10 @@ export default function Timeline() {
       </CardHeader>
       <CardContent>
         <div className="relative">
-          {data.stops.map((stop, i) => {
+          {resolvedStops.map((stop, i) => {
             const color = STOP_COLORS[stop.type] || "#7C3AED"
-            const isLast = i === data.stops.length - 1
+            const isLast = i === resolvedStops.length - 1
+            const displayName = getDisplayName(stop)
 
             return (
               <div key={i} className="flex gap-4 pb-6 last:pb-0">
@@ -63,9 +66,9 @@ export default function Timeline() {
                       {stop.type}
                     </Badge>
                   </div>
-                  {stop.location && (
+                  {displayName && (
                     <p className="text-sm text-muted-foreground mt-0.5">
-                      {stop.location}
+                      {displayName}
                     </p>
                   )}
                   <div className="flex gap-3 mt-1 text-xs text-muted-foreground">
